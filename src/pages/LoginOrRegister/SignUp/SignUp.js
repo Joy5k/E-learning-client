@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const SignUp = () => {
-  const {createUser} = useContext(AuthContext);
+  const {createUser,UpdateUserProfile} = useContext(AuthContext);
   console.log('check ', createUser)
   const [error, setError] = useState('');
     const handleSignUp = event => {
@@ -13,17 +13,30 @@ const SignUp = () => {
         const email = form.email.value;
         const name = form.name.value;
         const password = form.password.value;
-        const photoURL = form.photoURL.value;
+      const photoURL = form.photoURL.value;
+      
       console.log(email, name, password, photoURL); 
       createUser(email, password)
         .then(result => {
           const user = result.user;
+          handleUserUpdate(name,photoURL)
           console.log(user);
+          form.reset();
         })
         .catch(error => {
         setError(error.message);
       })
   }
+  const handleUserUpdate = (name, photoURL) => {
+    const data= {
+      displayName: name,
+      photoURL:photoURL
+    }
+    UpdateUserProfile(data)
+    .then(() => {})
+    .catch(error=>console.log(error))
+}
+
     return (
         <form onSubmit={handleSignUp}  className=" bg-gradient-to-r from-slate-400 to-red-300 to-gray-400bg-gradient-to-r from-gray-400 via-red-200 to-blue-200  hero min-h-screen w-full bg-base-200">
   <div className="hero-content w-8/12 grid grid-cols-1">
@@ -37,7 +50,7 @@ const SignUp = () => {
           <label className="label">
             <span className="label-text">Your Name</span>
           </label>
-          <input type="text" placeholder="Enter your name" name='name' className="input input-bordered" />
+          <input type="text" placeholder="Enter full your name" name='name' className="input input-bordered" />
         </div>
         <div className="form-control">
           <label className="label">

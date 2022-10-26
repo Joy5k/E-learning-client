@@ -1,27 +1,57 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import app from '../../firebase/firebase.init';
 import { createContext } from 'react';
-import { getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,signInWithPopup } from 'firebase/auth';
+import { getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,signInWithPopup,onAuthStateChanged,updateProfile } from 'firebase/auth';
+import { useState } from 'react';
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
-const AuthProvider = ({children}) => {
 
+const AuthProvider = ({ children }) => {
+    const [loading,setLoading]=useState(true)
+    const [user, setUser] = useState(null)
     const createUser = (email, password) => {
-        // setLoading(true)
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password);
     }
+
+//     useEffect(() => {
+//         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+//             if (currentUser === null || currentUser.emailVerified) {
+//                 setUser(currentUser)
+//            }
+//             setLoading(false)
+//         })
+//         return () => {
+//             unsubscribe();
+//         }
+// },[])
+
+
+
+
     const LogInUser = (email, password) => {
-        
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password);
     }
 
     const SignInWithGoogle = (provider) => {
+        setLoading(true)
+
+        return signInWithPopup(auth,provider)
+    }
+    const SignInWithGithub = (provider) => {
+        setLoading(true)
+
         return signInWithPopup(auth,provider)
     }
 
+    const UpdateUserProfile = Profile => {
+        return updateProfile(auth.currentUser,Profile)
+    }     
 
-const authInfo={LogInUser,createUser,SignInWithGoogle}
+
+const authInfo={LogInUser,user,setUser,createUser,SignInWithGoogle,UpdateUserProfile,SignInWithGithub}
     return (
         <AuthContext.Provider value={authInfo}>
         {children}
