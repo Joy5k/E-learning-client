@@ -5,18 +5,24 @@ import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 const Login = () => {
     const { LogInUser } = useContext(AuthContext);
   const [error, setError] = useState('');
-    console.log(LogInUser);
     const handleLogIn = event => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
         LogInUser(email, password)
             .then(result => {
                 const user = result.user;
-                console.log('login',user)
-        })
+                console.log('login', user)
+                form.reset();
+            })
+            .catch(error => {
+                console.log(error);
+                // const errorMessage = error.message;
+// console.log(errorMessage)
+                setError(error.message)
+            }
+    )
     }
 
 
@@ -41,7 +47,7 @@ const Login = () => {
           </label>
           <input type="password" placeholder="password" name='password' className="input input-bordered" />
          </div>
-            <span>  ...  </span>
+        <span className=' text-red-600'> {error}</span>
         <div className="form-control mt-6">
           <button className="btn btn-primary">Login</button>
         </div>

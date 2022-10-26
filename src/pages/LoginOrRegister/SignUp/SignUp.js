@@ -20,7 +20,7 @@ const SignUp = () => {
           console.log(user);
         })
         .catch(error => {
-        setError(error);
+        setError(error.message);
       })
   }
     return (
@@ -56,7 +56,7 @@ const SignUp = () => {
           </label>
           <input type="password" placeholder="password" name='password' className="input input-bordered" />
          </div>
-              <span>{error}</span>
+              <span className='text-red-600'>{error}</span>
         <div className="form-control mt-6">
           <button className="btn btn-primary">Sign Up</button>
         </div>
