@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Header.css'
 
 const Header = () => {
     return (
@@ -7,7 +8,7 @@ const Header = () => {
         <div className="flex-1">
                 <Link to='/' className="btn btn-ghost normal-case text-xl">
                     <img className=' rounded-full mb-2 h-14 w-14' src="https://cdn5.vectorstock.com/i/thumb-large/93/19/human-head-icon-with-light-bulb-inside-vector-35569319.jpg" alt="" />
-                    <span className='font-bold ml-2 text-3xl mb-4'>E-LEARNING</span>
+                    <span className='webTitle font-bold ml-2 text-3xl mb-4 '>E-LEARNING</span>
           </Link>
         </div>
         <div className="flex-none">
