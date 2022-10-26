@@ -1,8 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const SignUp = () => {
+  const {createUser} = useContext(AuthContext);
+  console.log('check ', createUser)
+  const [error, setError] = useState('');
+    const handleSignUp = event => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const name = form.name.value;
+        const password = form.password.value;
+        const photoURL = form.photoURL.value;
+      console.log(email, name, password, photoURL); 
+      createUser(email, password)
+        .then(result => {
+          const user = result.user;
+          console.log(user);
+        })
+        .catch(error => {
+        setError(error);
+      })
+  }
     return (
-        <form  className=" bg-gradient-to-r from-slate-400 to-red-300 to-gray-400bg-gradient-to-r from-gray-400 via-red-200 to-blue-200  hero min-h-screen w-full bg-base-200">
+        <form onSubmit={handleSignUp}  className=" bg-gradient-to-r from-slate-400 to-red-300 to-gray-400bg-gradient-to-r from-gray-400 via-red-200 to-blue-200  hero min-h-screen w-full bg-base-200">
   <div className="hero-content w-8/12 grid grid-cols-1">
     <div className="text-center lg:text-center block">
       <h1 className="text-5xl font-bold">Login now!</h1>
@@ -34,7 +56,7 @@ const SignUp = () => {
           </label>
           <input type="password" placeholder="password" name='password' className="input input-bordered" />
          </div>
-            <span>  ...  </span>
+              <span>{error}</span>
         <div className="form-control mt-6">
           <button className="btn btn-primary">Sign Up</button>
         </div>
