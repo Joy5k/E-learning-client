@@ -3,9 +3,11 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import {FaGoogle,FaGithub } from 'react-icons/fa';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
-    const { LogInUser } = useContext(AuthContext);
+    const provider = new GoogleAuthProvider();
+    const { LogInUser,SignInWithGoogle } = useContext(AuthContext);
   const [error, setError] = useState('');
     const handleLogIn = event => {
         event.preventDefault();
@@ -26,17 +28,24 @@ const Login = () => {
             }
     )
     }
+    const handleGoogleSignIn = () => {
+        SignInWithGoogle(provider)
+            .then(result => {
+                const user = result.user;
+            })
+        .catch(error=>console.error(error))
+    }
 
 
     return (
-        <form onSubmit={handleLogIn} className=" bg-gradient-to-r from-slate-400 to-red-300 to-gray-400bg-gradient-to-r from-gray-400 via-red-200 to-blue-200  hero min-h-screen w-full bg-base-200">
+        <div className=" bg-gradient-to-r from-slate-400 to-red-300 to-gray-400bg-gradient-to-r from-gray-400 via-red-200 to-blue-200  hero min-h-screen w-full bg-base-200">
   <div className="hero-content w-8/12 grid grid-cols-1">
     <div className="text-center lg:text-center block">
       <h1 className="text-5xl font-bold">Login now!</h1>
     
     </div>
     <div className="card flex-shrink-0 w-full mx-auto  max-w-md shadow-2xl bg-base-100">
-      <div className="card-body ">
+      <form  onSubmit={handleLogIn} className="card-body ">
         <div className="form-control">
           <label className="label">
             <span className="label-text">Email</span>
@@ -53,18 +62,15 @@ const Login = () => {
         <div className="form-control mt-6">
                             <button className="btn btn-primary">Login</button>
                            <p>------------Login With------------</p>
-                            <button className=" text-md btn  btn-outline mt-2"> <FaGoogle className='mr-2 text-blue-700 text-xl'></FaGoogle> Login With Google</button>
-                            <button className="btn  btn-outline mt-2"> <FaGithub className='text-xl mr-2'></FaGithub> Login With Github</button>
                            
-                            
-                           
-                            
-                            
         </div>
-      </div>
+                    </form>
+                    <button onClick={handleGoogleSignIn} className=" w-10/12 mx-auto text-md btn  btn-outline mt-2"> <FaGoogle className='mr-2 text-blue-700 text-xl'></FaGoogle> Login With Google</button>
+                     <button className= "w-10/12 mx-auto  btn  btn-outline mt-2 mb-4"> <FaGithub className='text-xl mr-2'></FaGithub> Login With Github</button>
+            
     </div>
   </div>
-</form>
+</div>
     );
 };
 
