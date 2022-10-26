@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import {FaGoogle,FaGithub } from 'react-icons/fa';
 
 const Login = () => {
     const { LogInUser } = useContext(AuthContext);
@@ -49,7 +51,15 @@ const Login = () => {
          </div>
         <span className=' text-red-600'> {error}</span>
         <div className="form-control mt-6">
-          <button className="btn btn-primary">Login</button>
+                            <button className="btn btn-primary">Login</button>
+                           <p>------------Login With------------</p>
+                            <button className=" text-md btn  btn-outline mt-2"> <FaGoogle className='mr-2 text-blue-700 text-xl'></FaGoogle> Login With Google</button>
+                            <button className="btn  btn-outline mt-2"> <FaGithub className='text-xl mr-2'></FaGithub> Login With Github</button>
+                           
+                            
+                           
+                            
+                            
         </div>
       </div>
     </div>
