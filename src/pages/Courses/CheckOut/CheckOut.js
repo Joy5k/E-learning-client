@@ -7,7 +7,9 @@ const CheckOut = () => {
     const checkOutCourse = useLoaderData();
     const { img, price, title, duration } = checkOutCourse;
     const showToastify = () => {
-        toast.success(  "Congratulation!");
+        toast.success(" Purchase Successfully!", {
+            position: toast.POSITION.TOP_CENTER
+          });
 }
     return (
         <div className='h-screen bg-gradient-to-r from-slate-400 to-red-300 to-gray-400bg-gradient-to-r from-gray-400 via-red-200 to-blue-200'>
