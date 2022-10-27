@@ -60,7 +60,7 @@ const Login = () => {
         .then(result => {
             const user = result.user;
           setUser(user);
-          if (user.uid) {
+          if (user.emailVerified===false) {
             navigate(from,{replace:true})
           }
           else {
