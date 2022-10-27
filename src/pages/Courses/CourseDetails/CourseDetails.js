@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { FaStar, FaStarHalf } from "react-icons/fa";
 import ReactDOM from "react-dom";
 import Pdf from "react-to-pdf";
@@ -13,7 +13,7 @@ const ref = React.createRef();
 const CourseDetails = () => {
     const course = useLoaderData();
     console.log(course)
-    const { img, price, title,description
+    const {id, img, price, title,description
     ,feedback,rating,duration} = course;
   return (
 
@@ -47,7 +47,7 @@ card w-96 bg-base-100 shadow-xl lg:w-5/12 md:w-8/12 sm:w-11/12">
         </div>
                         
                         <div className="card-actions">
-          <button className="btn btn-accent w-full h-10">Check Out</button>
+          <Link to={`/checkOut/${id}`} className="btn btn-accent w-full h-10">Check Out</Link>
         </div>
       </div>
     </div>

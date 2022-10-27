@@ -2,3 +2,12 @@
     display: grid;
     grid-template-columns: 4fr 1fr;
 }
+@media screen and (max-width:750px) {
+    .courseAndSidebar{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .alignItems{
+        margin-left: 50px;
+    }
+}

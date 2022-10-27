@@ -13,7 +13,7 @@ const CoursesCart = ({ course }) => {
           <h2 className="card-title text-center ">{title}</h2>
                 <p className='font-bold'>Price:{ price} $</p>
           <div className="card-actions justify-center">
-            <Link to={`/courses/${id}`} className="w-full btn btn-accent">Get Premium  Access</Link>
+            <Link to={`/courses/${id}`} className="w-full btn btn-accent">Details</Link>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../leyout/Main";
 import Blog from "../../pages/Blog/Blog";
+import CheckOut from "../../pages/Courses/CheckOut/CheckOut";
 import CourseDetails from "../../pages/Courses/CourseDetails/CourseDetails";
 import Courses from "../../pages/Courses/Courses";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage";
@@ -44,7 +45,11 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/courses/:id',
-                element: <PrivateRoute><CourseDetails></CourseDetails></PrivateRoute>,
+                element: <CourseDetails></CourseDetails>,
+                loader: ({params}) => fetch(`https://server-site-joy5k.vercel.app/courses/${params.id}`)
+            }, {
+                path: '/checkOut/:id',
+                element:<PrivateRoute> <CheckOut></CheckOut></PrivateRoute>,
                 loader: ({params}) => fetch(`https://server-site-joy5k.vercel.app/courses/${params.id}`)
             }
         ]
