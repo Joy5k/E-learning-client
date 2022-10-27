@@ -44,7 +44,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/courses/:id',
-                element: <CourseDetails></CourseDetails>,
+                element: <PrivateRoute><CourseDetails></CourseDetails></PrivateRoute>,
                 loader: ({params}) => fetch(`https://server-site-joy5k.vercel.app/courses/${params.id}`)
             }
         ]

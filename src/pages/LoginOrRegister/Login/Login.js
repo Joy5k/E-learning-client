@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import {FaGoogle,FaGithub } from 'react-icons/fa';
 import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
@@ -8,10 +8,11 @@ import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 const Login = () => {
     const provider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
-    const { setUser,LogInUser, SignInWithGoogle, SignInWithGithub } = useContext(AuthContext);
+    const { setLoading,setUser,LogInUser, SignInWithGoogle, SignInWithGithub } = useContext(AuthContext);
     // const [user,setUser]=useState(null)
   const [error, setError] = useState('');
   const location = useLocation();
+  const navigate = useNavigate();
   const from = location.state?.from?.pathname || '/';
     const handleLogIn = event => {
         event.preventDefault();
@@ -25,7 +26,7 @@ const Login = () => {
                 form.reset();
               setUser(user)
               if (user.uid) {
-                Navigate(from,{replace:true})
+                navigate(from,{replace:true})
               }
               else {
                 alert('Please verify your email account')
@@ -34,13 +35,21 @@ const Login = () => {
             .catch(error => {
                 console.log(error);
                 setError(error.message)
-            }
-    )
+            })
+            .finally(() => {
+              setLoading(false)
+            })
     }
     const handleGoogleSignIn = () => {
         SignInWithGoogle(provider)
             .then(result => {
-                const user = result.user;
+              const user = result.user;
+              if (user.uid) {
+                navigate(from,{replace:true})
+              }
+              else {
+                alert('Please verify your email account')
+              }
             })
         .catch(error=>console.error(error))
   }
@@ -50,7 +59,13 @@ const Login = () => {
         SignInWithGithub(githubProvider)
         .then(result => {
             const user = result.user;
-            setUser(user);
+          setUser(user);
+          if (user.uid) {
+            navigate(from,{replace:true})
+          }
+          else {
+            alert('Please verify your email account')
+          }
         })
     .catch(error=>console.error(error))
         
@@ -61,7 +76,7 @@ const Login = () => {
         <div className=" bg-gradient-to-r from-slate-400 to-red-300 to-gray-400bg-gradient-to-r from-gray-400 via-red-200 to-blue-200  hero min-h-screen w-full bg-base-200">
   <div className="hero-content w-8/12 grid grid-cols-1">
     <div className="text-center lg:text-center block">
-                    <h1 className="text-5xl font-bold"> Login now!</h1>
+           <h1 className="text-5xl font-bold"> Login now!</h1>
                     
     
     </div>
