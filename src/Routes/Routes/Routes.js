@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../leyout/Main";
 import Blog from "../../pages/Blog/Blog";
+import CourseDetails from "../../pages/Courses/CourseDetails/CourseDetails";
 import Courses from "../../pages/Courses/Courses";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 import FAQ from "../../pages/FAQ/FAQ";
@@ -39,6 +40,11 @@ export const routes = createBrowserRouter([
                 path: '/courses',
                 element: <Courses></Courses>,
                 loader: () => fetch('https://server-site-joy5k.vercel.app/courses')
+            },
+            {
+                path: '/courses/:id',
+                element: <CourseDetails></CourseDetails>,
+                loader: ({params}) => fetch(`https://server-site-joy5k.vercel.app/courses/${params.id}`)
             }
         ]
     }

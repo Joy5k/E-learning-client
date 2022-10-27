@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import app from '../../firebase/firebase.init';
 import { createContext } from 'react';
-import { getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,signInWithPopup,onAuthStateChanged,updateProfile } from 'firebase/auth';
+import { getAuth,signOut,signInWithEmailAndPassword,createUserWithEmailAndPassword,signInWithPopup,onAuthStateChanged,updateProfile } from 'firebase/auth';
 import { useState } from 'react';
 
 export const AuthContext = createContext();
@@ -15,17 +15,17 @@ const AuthProvider = ({ children }) => {
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
-//     useEffect(() => {
-//         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-//             if (currentUser === null || currentUser.emailVerified) {
-//                 setUser(currentUser)
-//            }
-//             setLoading(false)
-//         })
-//         return () => {
-//             unsubscribe();
-//         }
-// },[])
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser === null || currentUser.emailVerified) {
+                setUser(currentUser)
+           }
+            setLoading(false)
+        })
+        return () => {
+            unsubscribe();
+        }
+},[])
 
 
 
@@ -40,10 +40,15 @@ const AuthProvider = ({ children }) => {
 
         return signInWithPopup(auth,provider)
     }
+    
     const SignInWithGithub = (provider) => {
         setLoading(true)
-
         return signInWithPopup(auth,provider)
+    }
+    
+    const logOut = () => {
+        setLoading(true)
+        return signOut(auth);
     }
 
     const UpdateUserProfile = Profile => {
@@ -51,7 +56,7 @@ const AuthProvider = ({ children }) => {
     }     
 
 
-const authInfo={LogInUser,user,setUser,createUser,SignInWithGoogle,UpdateUserProfile,SignInWithGithub}
+const authInfo={LogInUser,logOut,user,setUser,createUser,SignInWithGoogle,UpdateUserProfile,SignInWithGithub}
     return (
         <AuthContext.Provider value={authInfo}>
         {children}

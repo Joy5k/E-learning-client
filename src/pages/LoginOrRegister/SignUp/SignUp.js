@@ -50,7 +50,7 @@ const SignUp = () => {
           <label className="label">
             <span className="label-text">Your Name</span>
           </label>
-          <input type="text" placeholder="Enter full your name" name='name' className="input input-bordered" />
+          <input type="text" placeholder="Enter full your name" name='name' className="input input-bordered" required />
         </div>
         <div className="form-control">
           <label className="label">
@@ -62,13 +62,13 @@ const SignUp = () => {
           <label className="label">
             <span className="label-text">Email</span>
           </label>
-          <input type="text" placeholder="email" name='email' className="input input-bordered" />
+          <input type="text" placeholder="email" name='email' className="input input-bordered" required/>
         </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text" >Password</span>
           </label>
-          <input type="password" placeholder="password" name='password' className="input input-bordered" />
+          <input type="password" placeholder="password" name='password' className="input input-bordered" required/>
          </div>
               <span className='text-red-600'>{error}</span>
         <div className="form-control mt-6">

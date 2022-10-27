@@ -35,12 +35,14 @@ const Login = () => {
                 const user = result.user;
             })
         .catch(error=>console.error(error))
-    }
+  }
+
+  // github login
     const handleGithubSignIn = () => {
         SignInWithGithub(githubProvider)
         .then(result => {
             const user = result.user;
-            console.log(user);
+            setUser(user);
         })
     .catch(error=>console.error(error))
         
