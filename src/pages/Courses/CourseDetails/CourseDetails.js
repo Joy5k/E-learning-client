@@ -25,7 +25,7 @@ const CourseDetails = () => {
   <div ref={ref}>
   <div className='  mb-8 pt-4 bg-gradient-to-r from-slate-400 to-red-300 to-gray-400bg-gradient-to-r from-gray-400 via-red-200 to-blue-200'>
              
-             <div className='w-full flex justify-left justify-between pl-44 pr-44'>
+             <div className='w-full lg:flex lg:justify-left lg:justify-between sm:block pl-44 pr-44'>
            
            <div className=" border rounded-none drop-shadow-2xl
  
@@ -52,7 +52,7 @@ const CourseDetails = () => {
          </div>
        </div>
             </div>
-            <div className='mr-32 mt-44'>
+            <div className='lg:mr-32 lg:mt-44 sm:m-8 sm:p-8'>
             <Pdf targetRef={ref} filename="code-example.pdf">
     {({ toPdf }) =>  <button className='text-2xl font-bold' onClick={toPdf}>Click to Download PDF</button>}
   </Pdf>
