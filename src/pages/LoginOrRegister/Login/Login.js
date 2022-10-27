@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import {FaGoogle,FaGithub } from 'react-icons/fa';
 import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
@@ -11,17 +11,25 @@ const Login = () => {
     const { setUser,LogInUser, SignInWithGoogle, SignInWithGithub } = useContext(AuthContext);
     // const [user,setUser]=useState(null)
   const [error, setError] = useState('');
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
     const handleLogIn = event => {
         event.preventDefault();
         const form = event.target;
-        const email = form.email.value;
+      const email = form.email.value;
         const password = form.password.value;
         LogInUser(email, password)
             .then(result => {
                 const user = result.user;
                 console.log('login', user)
                 form.reset();
-                setUser(user)
+              setUser(user)
+              if (user.uid) {
+                Navigate(from,{replace:true})
+              }
+              else {
+                alert('Please verify your email account')
+              }
             })
             .catch(error => {
                 console.log(error);

@@ -9,9 +9,9 @@ const CoursesCart = ({ course }) => {
     return (
            <div className=" card card-compact  mb-4 w-10/12 bg-base-100 shadow-xl">
         <figure><img className='h-48 w-full' src={img} alt="Shoes" /></figure>
-        <div className="card-body">
+        <div className="card-body text-left">
           <h2 className="card-title text-center ">{title}</h2>
-                <p>Price:{ price} $</p>
+                <p className='font-bold'>Price:{ price} $</p>
           <div className="card-actions justify-center">
             <Link to={`/courses/${id}`} className="w-full btn btn-accent">Get Premium  Access</Link>
           </div>

@@ -8,6 +8,7 @@ import FAQ from "../../pages/FAQ/FAQ";
 import Home from "../../pages/Home/Home";
 import Login from "../../pages/LoginOrRegister/Login/Login";
 import SignUp from "../../pages/LoginOrRegister/SignUp/SignUp";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
 export const routes = createBrowserRouter([
@@ -38,7 +39,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/courses',
-                element: <Courses></Courses>,
+                element:<Courses></Courses>,
                 loader: () => fetch('https://server-site-joy5k.vercel.app/courses')
             },
             {
