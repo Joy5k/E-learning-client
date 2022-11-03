@@ -1,14 +1,13 @@
+
 import { RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-import router from './Router/Routes/Routes';
-
+import { routes } from './Routes/Routes/Routes';
 
 function App() {
   return (
-    <div  className='max-w-screen-xl	mx-auto'>
-      <RouterProvider router={router}></RouterProvider>
+    <div className="App">
+      <RouterProvider router={routes}></RouterProvider>
       <ToastContainer></ToastContainer>
     </div>
   );

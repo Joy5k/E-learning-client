@@ -3,15 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import AuthProvider from './context/authProvider/AuthProvider';
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+import AuthProvider from './context/AuthProvider/AuthProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
     <App />
-</AuthProvider>
+ </AuthProvider>
   </React.StrictMode>
 );
 
